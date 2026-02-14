@@ -21,13 +21,13 @@
   }
 
   h1 {
-    margin: 40px 0 5px;
-    font-size: 18px;
+    margin: 15vh 0 10px; /* heading slightly lower */
+    font-size: 20px;
     letter-spacing: 1px;
   }
 
   #score {
-    font-size: 13px;
+    font-size: 14px;
     opacity: 0.7;
   }
 
@@ -64,24 +64,25 @@
     100% { opacity: 1; }
   }
 
-  /* LETTER — optimized for phone */
+  /* CENTERED LETTER BOX */
   #message {
     display: none;
     position: absolute;
-    top: 52%;
+    top: 55%;
     left: 50%;
     transform: translate(-50%, -50%);
     background: white;
     width: 90%;
-    max-height: 75vh;   /* ensures it stays within screen */
-    padding: 18px;
-    border-radius: 10px;
+    max-width: 500px;
+    max-height: 65vh; /* box height fixed, scroll inside */
+    padding: 20px;
+    border-radius: 12px;
     box-shadow: 0 10px 35px rgba(0,0,0,0.15);
-    font-size: 13px;
-    line-height: 1.45;
+    line-height: 1.5;
+    font-size: 15px;
     text-align: left;
+    overflow-y: auto; /* allows scrolling inside the box */
     z-index: 3;
-    overflow: hidden; /* removes scrolling */
   }
 
   /* burst hearts */
