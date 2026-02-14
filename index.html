@@ -1,165 +1,143 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Catch My Heart</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Catch My Heart</title>
 
-    <style>
-        body {
-            margin: 0;
-            overflow: hidden;
-            background: #f7f7f7;
-            color: #222;
-            font-family: "Courier New", monospace;
-            text-align: center;
-            transition: background 0.4s ease;
-        }
+<style>
+  body {
+    margin: 0;
+    overflow: hidden;
+    background: #f7f7f7;
+    color: #222;
+    font-family: "Courier New", monospace;
+    text-align: center;
+    transition: background 0.4s ease;
+  }
 
-        body.dim {
-            background: #e9e9e9;
-        }
+  body.dim {
+    background: #e9e9e9;
+  }
 
-        h1 {
-            margin: 40px 0 5px;
-            font-size: 20px;
-            letter-spacing: 1px;
-        }
+  h1 {
+    margin: 40px 0 5px;
+    font-size: 18px;
+    letter-spacing: 1px;
+  }
 
-        #score {
-            font-size: 14px;
-            opacity: 0.7;
-        }
+  #score {
+    font-size: 13px;
+    opacity: 0.7;
+  }
 
-        .heart {
-            position: absolute;
-            font-size: 38px;
-            color: #e63946;
-            user-select: none;
-        }
+  .heart {
+    position: absolute;
+    font-size: 36px;
+    color: #e63946;
+    user-select: none;
+  }
 
-        #player {
-            position: absolute;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 42px;
-        }
+  #player {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 40px;
+  }
 
-        #envelope {
-            display: none;
-            position: absolute;
-            top: 45%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 46px;
-            cursor: pointer;
-            animation: flash 1s infinite;
-            z-index: 3;
-        }
+  #envelope {
+    display: none;
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 44px;
+    cursor: pointer;
+    animation: flash 1s infinite;
+    z-index: 3;
+  }
 
-        @keyframes flash {
-            0% {
-                opacity: 1;
-            }
+  @keyframes flash {
+    0% { opacity: 1; }
+    50% { opacity: 0.25; }
+    100% { opacity: 1; }
+  }
 
-            50% {
-                opacity: 0.25;
-            }
+  /* LETTER — optimized for phone */
+  #message {
+    display: none;
+    position: absolute;
+    top: 52%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    width: 90%;
+    max-height: 75vh;   /* ensures it stays within screen */
+    padding: 18px;
+    border-radius: 10px;
+    box-shadow: 0 10px 35px rgba(0,0,0,0.15);
+    font-size: 13px;
+    line-height: 1.45;
+    text-align: left;
+    z-index: 3;
+    overflow: hidden; /* removes scrolling */
+  }
 
-            100% {
-                opacity: 1;
-            }
-        }
+  /* burst hearts */
+  .splash {
+    position: absolute;
+    font-size: 24px;
+    color: #e63946;
+    animation: burst 900ms ease-out forwards;
+    z-index: 2;
+  }
 
-        /* centered letter */
-        #message {
-            display: none;
-            position: absolute;
-            top: 58%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 16px;
-            line-height: 1.6;
-            background: white;
-            padding: 22px 30px;
-            border-radius: 8px;
-            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.15);
-            max-width: 85%;
-            text-align: left;
-            min-height: 120px;
-            z-index: 3;
-        }
+  @keyframes burst {
+    from { opacity: 1; transform: translate(0, 0) scale(1); }
+    to { opacity: 0; transform: translate(var(--x), var(--y)) scale(1.4); }
+  }
 
-        /* burst hearts */
-        .splash {
-            position: absolute;
-            font-size: 26px;
-            color: #e63946;
-            animation: burst 900ms ease-out forwards;
-            z-index: 2;
-        }
+  /* floating hearts */
+  .float {
+    position: absolute;
+    bottom: -20px;
+    font-size: 16px;
+    color: #e63946;
+    opacity: 0.6;
+    animation: floatUp 3s linear forwards;
+    z-index: 1;
+  }
 
-        @keyframes burst {
-            from {
-                opacity: 1;
-                transform: translate(0, 0) scale(1);
-            }
-
-            to {
-                opacity: 0;
-                transform: translate(var(--x), var(--y)) scale(1.4);
-            }
-        }
-
-        /* floating hearts background */
-        .float {
-            position: absolute;
-            bottom: -20px;
-            font-size: 18px;
-            color: #e63946;
-            opacity: 0.6;
-            animation: floatUp 3s linear forwards;
-            z-index: 1;
-        }
-
-        @keyframes floatUp {
-            from {
-                transform: translateY(0);
-                opacity: 0.6;
-            }
-
-            to {
-                transform: translateY(-110vh);
-                opacity: 0;
-            }
-        }
-    </style>
+  @keyframes floatUp {
+    from { transform: translateY(0); opacity: 0.6; }
+    to { transform: translateY(-110vh); opacity: 0; }
+  }
+</style>
 </head>
 
 <body>
 
-    <h1>Catch 7 hearts to be my Valentine</h1>
-    <div id="score">Hearts caught: 0 / 7</div>
+<h1>Catch 7 hearts to be my Valentine</h1>
+<div id="score">Hearts caught: 0 / 7</div>
 
-    <div id="player">🧺</div>
-    <div id="envelope">✉️</div>
+<div id="player">🧺</div>
+<div id="envelope">✉️</div>
 
-    <div id="message"></div>
+<div id="message"></div>
 
-    <script>
-        const player = document.getElementById("player");
-        const scoreText = document.getElementById("score");
-        const envelope = document.getElementById("envelope");
-        const message = document.getElementById("message");
+<script>
+  const player = document.getElementById("player");
+  const scoreText = document.getElementById("score");
+  const envelope = document.getElementById("envelope");
+  const message = document.getElementById("message");
 
-        let score = 0;
-        const goal = 7;
-        let gameActive = true;
-        let floatingInterval;
+  let score = 0;
+  const goal = 7;
+  let gameActive = true;
+  let floatingInterval;
 
-        const loveNote = `
+  const loveNote = `
 You caught seven hearts to be my Valentine… but honestly, I’m giving you every single heart and all the love I have anyway. I am so incredibly proud of you and everything that you are. Sometimes I can’t believe how far we’ve come, but I can absolutely see how much of a joy it will be to celebrate many more Valentine’s Days together.
 
 Is celebrating Valentine’s really our thing? I don’t even know. Maybe I’m just missing you a little extra right now.
@@ -169,109 +147,108 @@ I hope you have the most amazing time in India. I’m so excited for this trip f
 I love you, Vinki Minkiii ❤️
 `;
 
-        document.addEventListener("mousemove", e => {
-            player.style.left = e.clientX + "px";
-        });
+  document.addEventListener("mousemove", e => {
+    player.style.left = e.clientX + "px";
+  });
 
-        document.addEventListener("touchmove", e => {
-            player.style.left = e.touches[0].clientX + "px";
-        });
+  document.addEventListener("touchmove", e => {
+    player.style.left = e.touches[0].clientX + "px";
+  });
 
-        function spawnHeart() {
-            if (!gameActive) return;
+  function spawnHeart() {
+    if (!gameActive) return;
 
-            const heart = document.createElement("div");
-            heart.className = "heart";
-            heart.textContent = "♥";
-            heart.style.left = Math.random() * window.innerWidth + "px";
-            heart.style.top = "-40px";
-            document.body.appendChild(heart);
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.textContent = "♥";
+    heart.style.left = Math.random() * window.innerWidth + "px";
+    heart.style.top = "-40px";
+    document.body.appendChild(heart);
 
-            let fall = setInterval(() => {
-                if (!gameActive) {
-                    heart.remove();
-                    clearInterval(fall);
-                    return;
-                }
+    let fall = setInterval(() => {
+      if (!gameActive) {
+        heart.remove();
+        clearInterval(fall);
+        return;
+      }
 
-                heart.style.top = heart.offsetTop + 3 + "px";
+      heart.style.top = heart.offsetTop + 3 + "px";
 
-                const heartRect = heart.getBoundingClientRect();
-                const playerRect = player.getBoundingClientRect();
+      const heartRect = heart.getBoundingClientRect();
+      const playerRect = player.getBoundingClientRect();
 
-                if (
-                    heartRect.bottom >= playerRect.top &&
-                    heartRect.left < playerRect.right &&
-                    heartRect.right > playerRect.left
-                ) {
-                    score++;
-                    scoreText.textContent = `Hearts caught: ${score} / ${goal}`;
-                    heart.remove();
-                    clearInterval(fall);
+      if (
+        heartRect.bottom >= playerRect.top &&
+        heartRect.left < playerRect.right &&
+        heartRect.right > playerRect.left
+      ) {
+        score++;
+        scoreText.textContent = `Hearts caught: ${score} / ${goal}`;
+        heart.remove();
+        clearInterval(fall);
 
-                    if (score >= goal) {
-                        gameActive = false;
-                        envelope.style.display = "block";
-                    }
-                }
-
-                if (heart.offsetTop > window.innerHeight) {
-                    heart.remove();
-                    clearInterval(fall);
-                }
-            }, 20);
+        if (score >= goal) {
+          gameActive = false;
+          envelope.style.display = "block";
         }
+      }
 
-        setInterval(() => {
-            if (gameActive) spawnHeart();
-        }, 900);
+      if (heart.offsetTop > window.innerHeight) {
+        heart.remove();
+        clearInterval(fall);
+      }
+    }, 20);
+  }
 
-        function splashHearts() {
-            for (let i = 0; i < 20; i++) {
-                const s = document.createElement("div");
-                s.className = "splash";
-                s.textContent = "♥";
-                s.style.left = window.innerWidth / 2 + "px";
-                s.style.top = window.innerHeight / 2 + "px";
+  setInterval(() => {
+    if (gameActive) spawnHeart();
+  }, 900);
 
-                const x = (Math.random() - 0.5) * 400 + "px";
-                const y = (Math.random() - 0.5) * 400 + "px";
-                s.style.setProperty("--x", x);
-                s.style.setProperty("--y", y);
+  function splashHearts() {
+    for (let i = 0; i < 20; i++) {
+      const s = document.createElement("div");
+      s.className = "splash";
+      s.textContent = "♥";
+      s.style.left = window.innerWidth / 2 + "px";
+      s.style.top = window.innerHeight / 2 + "px";
 
-                document.body.appendChild(s);
-                setTimeout(() => s.remove(), 900);
-            }
-        }
+      const x = (Math.random() - 0.5) * 300 + "px";
+      const y = (Math.random() - 0.5) * 300 + "px";
+      s.style.setProperty("--x", x);
+      s.style.setProperty("--y", y);
 
-        function startFloatingHearts() {
-            floatingInterval = setInterval(() => {
-                const f = document.createElement("div");
-                f.className = "float";
-                f.textContent = "♥";
-                f.style.left = Math.random() * window.innerWidth + "px";
-                document.body.appendChild(f);
-                setTimeout(() => f.remove(), 3000);
-            }, 250);
-        }
+      document.body.appendChild(s);
+      setTimeout(() => s.remove(), 900);
+    }
+  }
 
-        function typeWriter(text, i = 0) {
-            if (i < text.length) {
-                message.innerHTML += text.charAt(i) === "\n" ? "<br><br>" : text.charAt(i);
-                setTimeout(() => typeWriter(text, i + 1), 18);
-            }
-        }
+  function startFloatingHearts() {
+    floatingInterval = setInterval(() => {
+      const f = document.createElement("div");
+      f.className = "float";
+      f.textContent = "♥";
+      f.style.left = Math.random() * window.innerWidth + "px";
+      document.body.appendChild(f);
+      setTimeout(() => f.remove(), 3000);
+    }, 300);
+  }
 
-        envelope.addEventListener("click", () => {
-            envelope.style.display = "none";
-            document.body.classList.add("dim");
-            message.style.display = "block";
-            splashHearts();
-            startFloatingHearts();
-            typeWriter(loveNote);
-        });
-    </script>
+  function typeWriter(text, i = 0) {
+    if (i < text.length) {
+      message.innerHTML += text.charAt(i) === "\n" ? "<br><br>" : text.charAt(i);
+      setTimeout(() => typeWriter(text, i + 1), 12);
+    }
+  }
+
+  envelope.addEventListener("click", () => {
+    envelope.style.display = "none";
+    document.body.classList.add("dim");
+    message.style.display = "block";
+    splashHearts();
+    startFloatingHearts();
+    typeWriter(loveNote);
+  });
+</script>
 
 </body>
-
 </html>
